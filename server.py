@@ -1,3 +1,17 @@
+"""
+***********SERVIDOR UDP + TCP **************
+
+TRATA AS MENSAGENS RECEBIDAS DO CHAT, FUNCIONA COMO O MEDIADOR DO CHAT.
+
+
+**********SE RECEBER UMA MENSAGEM COMUM, ELE PRINTA E ENVIA PARA OS CLIENTES DO VETOR******************
+
+**********NO DOWNLOAD ELE ABRE UMA CONEXAO TCP PARA ENVIO DE ARQUIVOS DE TEXTO****************
+
+
+"""
+
+
 import socket
 import threading
 import os
