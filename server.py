@@ -16,9 +16,8 @@ import socket
 import threading
 import os
 import time
+import datetime
 TAM_MSG = 1024
-
-
 
 
 
@@ -65,6 +64,7 @@ def envia_arq(msg):
 
 def recebe_mensagem(udp,clientess= []):
 	while True:
+		history = open("historico.txt","a")
 		msg,cliente = udp.recvfrom(1024)
 		if not cliente in clientess:
 			clientess.append(cliente)
@@ -76,8 +76,12 @@ def recebe_mensagem(udp,clientess= []):
 			print(msg.decode())
 			for x in clientess:
 				threading.Thread(target=envia_mensagem,args=(udp,x,msg)).start()
+			hora_atual = datetime.datetime.now()
+			n = msg[7:-6].decode()
+			history.write(hora_atual.strftime("%c")+"****"+n+"\n" )
 	udp.close()	
-			
+	history.close()
+	
 HOST = socket.gethostbyname(socket.gethostname())  # Endereco IP do Servidor
 PORT = 5000  # Porta que o Servidor está
 udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
