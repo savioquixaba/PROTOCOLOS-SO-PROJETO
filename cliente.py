@@ -1,3 +1,17 @@
+"""
+**********APLICAÇÃO CLIENTE UDP + TCP *************
+
+COMO FUNCIONA: ELE FUNCIONA SE CONECTANDO A UM SERVIDOR Q VAI TRATAR AS MENSAGENS, RECEBENDO SUA MENSAGEM PARA SI PROPRIO APÓS O ENVIO
+		E PARA OS OUTROS CLIENTES TAMBÉM. O SERVIDOR APENAS RECEBE AS MESNAGENS NORMAIS E ENVIA PARA TODOS
+		
+COMO FUNCIONA O /DOWNLOAD: /DOWNLOAD vai abrir uma conexão TCP, q vai enviar o nome do arquivo de texto solicitado que está no servidor. Se o arquivo não existir,
+			   O servidor o avisa e fecha a conexão TCP.
+
+RESUMO:
+	- MENSAGENS = UDP
+	- DOWNLOAD/ENVIO DE ARQS DE TEXTO = TCP
+
+"""
 import socket
 import threading
 import json
