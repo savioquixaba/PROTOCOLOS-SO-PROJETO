@@ -30,19 +30,21 @@ def convert_data_to_ints(data, big_endian=True):
     return struct.unpack(fmt, data[:int_count * 4])
 """
 
-def sendata(sock,nome):
+
+def sendata(sock,nome,host,port):
+	
 	while True:
 		msg_to_send = input()
 		if msg_to_send[0:10] == "/DOWNLOAD ":
 			soc = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-			sock.sendto(msg_to_send.encode(),('127.0.1.1',5000))
+			sock.sendto(msg_to_send.encode(),(host,port))
 			time.sleep(1)
-			soc.connect(('127.0.1.1',8000))
+			soc.connect((host,8000))
 			soc.send(str.encode(msg_to_send))
 			print("MSG ENVIADA")
 			dados = soc.recv(102400000)
-			time.sleep(2)
 			nome_arq = msg_to_send[10:]
+			#print('Recebendo:', nome_arq)
 			if dados.decode() =="Arquivo não existe!!":
 				soc.close()
 			else:	
@@ -53,7 +55,7 @@ def sendata(sock,nome):
 
 		else:		
 			m = cor+f"{nome}// " + msg_to_send +"\033[0;0m"
-			sock.sendto(m.encode(),("127.0.1.1",5000)) 
+			sock.sendto(m.encode(),(host,port)) 
 			time.sleep(1.5)				
 		
 
@@ -70,11 +72,13 @@ def recvdata(sock,vet):
 	
 
 name = input("Digite seu nome -> ")
+host = input("Digite o IP do servidor -> ")
+port = int(input("Digite a porta -> "))
 s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
 vetor = []
 welcome_msg = "***************CHAT DOS PROGRAMADORES**********************"
 vetor.append(welcome_msg)
 b = threading.Thread(target=recvdata, args=(s,vetor,))
 b.start()
-a = threading.Thread(target=sendata, args=(s,name,))
+a = threading.Thread(target=sendata, args=(s,name,host,port,))
 a.start()
