@@ -8,12 +8,13 @@ import time
 TAM_MSG = 1024
 cor = a["estilo"]["cor_fonte"]
 
-
+"""
 def convert_data_to_ints(data, big_endian=True):
     int_count = len(data) // 4  # Assuming uint is 4 bytes long !!!
     fmt = ">" if big_endian else "<"
     fmt += "I" * int_count
     return struct.unpack(fmt, data[:int_count * 4])
+"""
 
 def sendata(sock,nome):
 	while True:
@@ -27,29 +28,12 @@ def sendata(sock,nome):
 			print("MSG ENVIADA")
 			dados = soc.recv(102400000)
 			time.sleep(2)
-			#print(dados.decode())
-			#if not dados: 
-			#	break
-			#msg_status = dados.decode()
-			#dados = dados[len(msg_status)+1:]
-			#print("Aperte Enter para receber o arquivo")
 			nome_arq = msg_to_send[10:]
-			#print('Recebendo:', nome_arq)
 			if dados.decode() =="Arquivo não existe!!":
 				soc.close()
 			else:	
 				arq = open(nome_arq, "wb")
-				#tam_arquivo = len(msg_status)
-				#tam_arquivo = int(msg_status.split()[1])
-				#while True:
-				#datinha = convert_data_to_ints(dados)
 				arq.write(dados)
-					#tam_arquivo -= 1
-					#if tam_arquivo == 0:
-					#	break
-					#dados = sock.recv(TAM_MSG)
-					#if not dados: 
-						#break
 				arq.close()
 				soc.close()
 
@@ -58,12 +42,6 @@ def sendata(sock,nome):
 			sock.sendto(m.encode(),("127.0.1.1",5000)) 
 			time.sleep(1.5)				
 		
-
-
-
-
-
-
 
 def recvdata(sock,vet):
 	
@@ -82,15 +60,7 @@ s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
 vetor = []
 welcome_msg = "***************CHAT DOS PROGRAMADORES**********************"
 vetor.append(welcome_msg)
-#while True:
-	#os.system("clear||cls")
-	#for men in vetor:
-		#print(men)
 b = threading.Thread(target=recvdata, args=(s,vetor,))
 b.start()
 a = threading.Thread(target=sendata, args=(s,name,))
 a.start()
-	#msg,recpt = s.recvfrom(1024)
-	#if recpt:
-	#	vetor.append(msg.decode())
-	#b = threading.Thread(target=recvdata, args=(s,vetor,))
