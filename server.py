@@ -26,7 +26,7 @@ def envia_mensagem(sock,client,msg):
 def envia_arq(msg):
 	print("FUNFOU")
 	sock_file = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	sock_file.bind(('127.0.1.1', 8000)) 
+	sock_file.bind((socket.gethostbyname(socket.gethostname()), 8000)) 
 	sock_file.listen(1)
 	time.sleep(2)
 	while True:
