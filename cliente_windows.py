@@ -57,7 +57,7 @@ def sendata(sock,nome,host,port):
 		else:		
 			m = cor+f"{nome}// " + msg_to_send +"\033[0;0m"
 			sock.sendto(m.encode(),(host,port)) 
-			time.sleep(1.5)				
+						
 		
 #OneDrive\Área de Trabalho\chat
 def recvdata(sock,vet):
