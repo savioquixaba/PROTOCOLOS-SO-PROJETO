@@ -27,8 +27,8 @@ def envia_arq(msg):
 	print("FUNFOU")
 	sock_file = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	sock_file.bind((socket.gethostbyname(socket.gethostname()), 8000)) 
-	sock_file.listen(1)
-	time.sleep(2)
+	sock_file.listen(10)
+	
 	while True:
 			con, addr = sock_file.accept() 
 			print(addr)
